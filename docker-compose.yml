@@ -1,0 +1,48 @@
+services:
+  fastapi:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=postgresql://postgres:example@db:5432/postgres
+    volumes:
+      - .:/app
+    networks:
+      - default
+
+  redis:
+    image: "redis:latest"
+    container_name: redis_db
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - default
+
+  celery_worker:
+    build: .
+    container_name: celery_worker
+    command: celery -A celery_config worker --loglevel=INFO
+    depends_on:
+      - redis
+      - fastapi
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=postgresql://postgres:example@db:5432/postgres
+    volumes:
+      - .:/app
+    networks:
+      - default
+
+  db:
+   image: postgres
+   environment:
+      POSTGRES_PASSWORD: example
+   ports:
+      - '5432:5432'
+   networks:
+      - default
