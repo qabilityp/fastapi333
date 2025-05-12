@@ -1,7 +1,7 @@
 📱 WhatsApp Messenger Backend API
 FastAPI-based backend for a WhatsApp-style messenger. Supports user authentication, WhatsApp API integration via PyWa, background task management with Celery & Redis, and containerized deployment using Docker.
 
-
+----------------------------
 
 
 Features
@@ -36,7 +36,7 @@ Easy deployment with all services (FastAPI, Redis, etc.)
 Automatic docs with Swagger UI and ReDoc (available at /docs and /redoc)
 
 
-
+----------------------------
 
 
 🛠️ Tech Stack
@@ -57,7 +57,7 @@ Celery + Redis
 Docker & Docker Compose
 
 
-
+----------------------------
 
 
 🧪 Example Endpoints
